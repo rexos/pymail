@@ -1,6 +1,7 @@
 from smtplib import SMTP, SMTPAuthenticationError
 from getpass import getpass, getuser
 import os
+from checker import Checker
 from sys import exit
 
 SERVER = 'smtp.live.com'
@@ -9,7 +10,12 @@ PORT = 587
 name = os.environ.get('MAIL_ADR')
 if not name:
     name = raw_input('User : ')
+
+chk = Checker()
 psw = getpass()
+while not chk.check( psw ):
+    print('Sorry .. retry')
+    psw = getpass()
 
 server = SMTP( SERVER, port=PORT )
 server.ehlo()
