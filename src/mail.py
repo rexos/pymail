@@ -1,8 +1,13 @@
+import os
+import sys
+
+PATH = os.path.dirname( os.path.abspath( __file__ ) )
+sys.path.insert( 0, PATH + '/module' )
+
 from smtplib import SMTP, SMTPAuthenticationError
 from getpass import getpass, getuser
-import os
 from checker import Checker
-from sys import exit
+
 
 SERVER = 'smtp.live.com'
 PORT = 587
@@ -28,16 +33,21 @@ except SMTPAuthenticationError:
     print('Wrong user or psw')
     sys.exit(0)
 else:
-    to = [ rcp.strip() for rcp in raw_input('To : ').split(',') ]
-    msg = raw_input('Msg : ')
-    failed = {}
     try:
-        failed = server.sendmail( name, to, msg )
-        server.close()
-    except:
-        print('Something went wrong, retry')
-    else:
-        if failed:
-            print('Failed sending to ' + str(failed))
+        to = [ rcp.strip() for rcp in raw_input('To : ').split(',') ]
+        msg = raw_input('Msg : ')
+        failed = {}
+        try:
+            failed = server.sendmail( name, to, msg )
+            server.close()
+        except:
+            print('Something went wrong, retry')
         else:
-            print('Sent')
+            if failed:
+                print('Failed sending to ' + str(failed))
+            else:
+                print('Sent')
+    except KeyboardInterrupt:
+        print('\nTerminated')
+        server.close()
+        sys.exit(0)
