@@ -7,7 +7,7 @@ sys.path.insert( 0, PATH + '/module' )
 from smtplib import SMTP, SMTPAuthenticationError
 from getpass import getpass, getuser
 from checker import Checker
-
+from email_ob import Email
 
 SERVER = 'smtp.live.com'
 PORT = 587
@@ -34,16 +34,14 @@ except SMTPAuthenticationError:
     sys.exit(0)
 else:
     try:
-        to = [ rcp.strip() for rcp in raw_input('To : ').split(',') ]
-        msg = raw_input('Msg : ')
-        failed = {}
+        e = Email( name )
         try:
-            failed = server.sendmail( name, to, msg )
+            e.send( server )
             server.close()
         except:
             print('Something went wrong, retry')
         else:
-            if failed:
+            if e.failed:
                 print('Failed sending to ' + str(failed))
             else:
                 print('Sent')
