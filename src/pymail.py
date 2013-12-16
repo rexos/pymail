@@ -42,7 +42,7 @@ else:
             print('Something went wrong, retry')
         else:
             if e.failed:
-                print('Failed sending to ' + str(failed))
+                print('Failed sending to ' + str(e.failed))
             else:
                 print('Sent')
     except KeyboardInterrupt:
