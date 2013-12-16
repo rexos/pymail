@@ -4,7 +4,7 @@ import sys
 PATH = os.path.dirname( os.path.abspath( __file__ ) )
 sys.path.insert( 0, PATH + '/module' )
 
-from smtplib import SMTP, SMTPAuthenticationError
+from smtplib import SMTP
 from getpass import getpass, getuser
 from checker import Checker
 from email_ob import Email
@@ -23,29 +23,18 @@ while not chk.check( psw ):
     psw = getpass()
 
 server = SMTP( SERVER, port=PORT )
-server.ehlo()
-server.starttls()
-server.ehlo()
 
 try:
-    server.login( name, psw )
-except SMTPAuthenticationError:
-    print('Wrong user or psw')
-    sys.exit(0)
-else:
+    e = Email( name, psw, server )
     try:
-        e = Email( name )
-        try:
-            e.send( server )
-            server.close()
-        except:
-            print('Something went wrong, retry')
+        e.send()
+    except:
+        print('\nSomething went wrong, retry')
+    else:
+        if e.failed:
+            print('Failed sending to ' + str(e.failed))
         else:
-            if e.failed:
-                print('Failed sending to ' + str(e.failed))
-            else:
-                print('Sent')
-    except KeyboardInterrupt:
-        print('\nTerminated')
-        server.close()
-        sys.exit(0)
+            print('Sent')
+except KeyboardInterrupt:
+    print('\nTerminated')
+    sys.exit(0)
