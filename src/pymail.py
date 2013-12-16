@@ -12,7 +12,7 @@ from email_ob import Email
 SERVER = 'smtp.live.com'
 PORT = 587
 
-name = os.environ.get('MAIL_ADR')
+name = os.environ.get('PYMAIL_ADR')
 if not name:
     name = raw_input('User : ')
 

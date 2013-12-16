@@ -4,7 +4,7 @@ import os
 class Checker:
     
     def __init__(self):
-        self.psw = os.environ.get('MAIL_PSW')
+        self.psw = os.environ.get('PYMAIL_PSW')
         self.digestor = hashlib.md5()
 
     def check( self, tmp ):
