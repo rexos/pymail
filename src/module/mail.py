@@ -1,10 +1,11 @@
-from smtplib import SMTP, SMTPAuthenticationError
+from smtplib import SMTP, SMTPAuthenticationError, SMTP_SSL
 import re
 import os
 
 EMAIL_RE = '[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}'
 SERVER = os.environ.get( 'PYMAIL_SRV' )
 PORT = os.environ.get( 'PYMAIL_PRT' )
+SSL = os.environ.get( 'PYMAIL_SSL' )
 
 class Email:
 
@@ -22,9 +23,13 @@ class Email:
             str(self.to) + "\n" + self.subject + "Body : " + self.msg
         
     def __start_server( self ):
-        self.server = SMTP( SERVER, port=PORT )
-        self.server.ehlo()
-        self.server.starttls()
+        if SSL:
+            self.server = SMTP_SSL( SERVER, port=PORT )
+        else:
+            self.server = SMTP( SERVER, port=PORT )
+            self.server.ehlo()
+            self.server.starttls()
+
         self.server.ehlo()
 
     def send( self ):
