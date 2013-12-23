@@ -11,13 +11,15 @@ function update_bash(){
 }
 
 touch $PYMAIL
-echo "mail addr : "
+echo "---- PyMail Config ----"
+echo "Mail addr : "
 read acc
 echo "#! /bin/bash" > $PYMAIL
 echo "export PYMAIL_ADR=$acc" >> $PYMAIL
-echo "mail pass :"
+echo "Mail pass :"
 read psw
 echo "export PYMAIL_PSW=$(md5 -q -s $psw)" >> $PYMAIL
-sudo chmod +x $PYMAIL
+chmod +x $PYMAIL
 update_bash
 echo "Done, restart the shell to make changes effective"
+echo "---- PyMail Config ----"
