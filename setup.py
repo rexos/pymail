@@ -17,7 +17,7 @@ class PyTest( TestCommand ):
 class PyInstall( InstallCommand ):
     def run( self ):
         InstallCommand.run( self )
-        os.system( 'src/install.sh' )
+        os.system( 'src/scripts/install.sh' )
 
 setup(
     name = "PyMail",

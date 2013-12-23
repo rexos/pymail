@@ -1,9 +1,10 @@
 from smtplib import SMTP, SMTPAuthenticationError
 import re
+import os
 
 EMAIL_RE = '[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}'
-SERVER = 'smtp.live.com'
-PORT = 587
+SERVER = os.environ.get( 'PYMAIL_SRV' )
+PORT = os.environ.get( 'PYMAIL_PRT' )
 
 class Email:
 
