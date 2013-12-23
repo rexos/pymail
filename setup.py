@@ -23,7 +23,7 @@ setup(
     name = "PyMail",
     version = "0.1",
     packages = find_packages(),
-    scripts = ['src/pymail','src/module/checker','src/module/mail'],
+    scripts = ['src/pymail.py','src/module/checker.py','src/module/mail.py'],
     tests_require=['pytest'],
     cmdclass = {'test': PyTest, 'install': PyInstall},
     author = "Alex Pellegrini",

@@ -8,6 +8,7 @@ function update_bash(){
     echo "if [ -f ~/.pymail_profile.sh ]; then" >> $profile
     echo "    source ~/.pymail_profile.sh" >> $profile
     echo "fi" >> $profile
+    echo "alias pymail=\"pymail.py\"" >> $profile
 }
 
 touch $PYMAIL
