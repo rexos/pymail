@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup, find_packages, Command
 from setuptools.command.test import test as TestCommand
 from setuptools.command.install import install as InstallCommand
 import sys
@@ -19,13 +19,25 @@ class PyInstall( InstallCommand ):
         InstallCommand.run( self )
         os.system( 'src/scripts/install.sh' )
 
+class PyUninstall( Command ):
+    description = "PyMail uninstall command"
+    user_options = []
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        os.system( 'src/scripts/uninstall.sh' )
+
 setup(
     name = "PyMail",
     version = "0.1",
     packages = find_packages(),
     scripts = ['src/pymail.py','src/module/checker.py','src/module/mail.py'],
     tests_require=['pytest'],
-    cmdclass = {'test': PyTest, 'install': PyInstall},
+    cmdclass = {'test': PyTest, 'install': PyInstall, 'uninstall': PyUninstall},
     author = "Alex Pellegrini",
     author_email = "alex.pellegrini@live.com",
     description = "Send mails through python using Simple Mail Transfer Protocol (SMTP)",
