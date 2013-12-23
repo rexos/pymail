@@ -13,14 +13,14 @@ class Email:
         self.to = [ rcp.strip() for rcp in re.findall( EMAIL_RE, raw_input('To : ') ) ]
         self.subject = "Subject : %s\n" % raw_input('Subject : ')
         self.msg = raw_input('Msg : ')
-        self.footer = "\n\n----------------\nsent from pymail"
+        self.footer = "\n\n----- sent from pymail -----"
         self.failed = {}
 
     def __str__( self ):
         return "From : " + self.name + "\nTo : " + \
             str(self.to) + "\n" + self.subject + "Body : " + self.msg
         
-    def __start_server(self):
+    def __start_server( self ):
         self.server = SMTP( SERVER, port=PORT )
         self.server.ehlo()
         self.server.starttls()

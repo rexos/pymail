@@ -13,12 +13,12 @@ if not name:
     name = raw_input('User : ')
 
 chk = Checker()
-psw = getpass()
-while not chk.check( psw ):
-    print('Sorry .. retry')
-    psw = getpass()
 
 try:
+    psw = getpass()
+    while not chk.check( psw ):
+        print('Sorry .. retry')
+        psw = getpass()
     e = Email( name, psw )
     try:
         e.send()
