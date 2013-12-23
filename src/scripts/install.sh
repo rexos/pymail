@@ -4,10 +4,10 @@ PYMAIL="$HOME/.pymail_profile.sh"
 profile="$HOME/.bash_profile"
 
 function update_bash(){
-    echo "# pymail setup" >> $profile
+    echo "# pymail config" >> $profile
     echo "if [ -f ~/.pymail_profile.sh ]; then" >> $profile
     echo "    source ~/.pymail_profile.sh" >> $profile
-    echo "fi" >> $profile
+    echo "fi # end pymail config" >> $profile
     echo "alias pymail=\"pymail.py\"" >> $profile
 }
 
