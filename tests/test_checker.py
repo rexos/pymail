@@ -7,7 +7,7 @@ from checker import Checker
 class TestChecker( object ):
     def test_check( self ):
         chk = Checker()
-        psw = os.environ.get('PYMAIL_PSW')
+        psw = 'correct_one'
         assert chk.check( psw ) == True
         assert chk.check( 'random_psw' ) == False
         

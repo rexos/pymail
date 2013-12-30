@@ -16,7 +16,11 @@ class Book():
                              'address LIKE ? OR alias LIKE ?',
                              ( self.__wrap( pattern ), 
                                self.__wrap( pattern ), ) )
-        print( self.cursor.fetchall() )
+        print( self.cursor.fetchone() )
+
+    def insert( self, address, alias ):
+        self.cursor.execute( 'INSERT INTO Addresses(address, alias) ' +
+                             'VALUES(?, ?)', (address, alias,) )
 
     def close( self ):
         conn = self.cursor.connection()
