@@ -1,8 +1,9 @@
 from smtplib import SMTP, SMTPAuthenticationError, SMTP_SSL
 import re
 import os
+import sys
+from book import *
 
-EMAIL_RE = '[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}'
 SERVER = os.environ.get( 'PYMAIL_SRV' )
 PORT = os.environ.get( 'PYMAIL_PRT' )
 SSL = os.environ.get( 'PYMAIL_SSL' )
@@ -10,17 +11,18 @@ SSL = os.environ.get( 'PYMAIL_SSL' )
 class Email:
 
     def __init__( self, name, psw ):
+        self.book = Book()
         self.name = name
         self.psw = psw
-        self.to = [ rcp.strip() for rcp in re.findall( EMAIL_RE, raw_input('To : ') ) ]
-        self.subject = "Subject : %s\n" % raw_input('Subject : ')
+        self.to = self.book.get_to()
+        self.subject = 'Subject : %s\n' % raw_input('Subject : ')
         self.msg = raw_input('Msg : ')
-        self.footer = "\n\n----- sent from pymail -----"
+        self.footer = '\n\n----- sent from pymail -----'
         self.failed = {}
 
     def __str__( self ):
-        return "From : " + self.name + "\nTo : " + \
-            str(self.to) + "\n" + self.subject + "Body : " + self.msg
+        return 'From : ' + self.name + '\nTo : ' + \
+            str(self.to) + '\n' + self.subject + 'Body : ' + self.msg
         
     def __start_server( self ):
         if SSL:
