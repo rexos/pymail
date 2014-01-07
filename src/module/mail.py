@@ -17,7 +17,6 @@ class Email:
         self.to = self.book.get_to()
         self.subject = 'Subject : %s\n' % raw_input('Subject : ')
         self.msg = raw_input('Msg : ')
-        self.footer = '\n\n----- sent from pymail -----'
         self.failed = {}
 
     def __str__( self ):
@@ -43,5 +42,5 @@ class Email:
             sys.exit(0)
         else:
             self.failed = self.server.sendmail( self.name, self.to,
-                                                self.subject + self.msg + self.footer )
+                                                self.subject + self.msg )
             self.server.close()
