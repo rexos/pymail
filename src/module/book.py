@@ -1,8 +1,8 @@
 from pysqlite2 import dbapi2 as db
 import os
 import re
-DBPATH = os.path.dirname( os.path.abspath( __file__ ) )
-DBPATH = DBPATH + '/../db/adr.sqlite'
+
+DBPATH = '/Users/alex/pymail/src/db/adr.sqlite'
 
 EMAIL_RE = '[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}'
 
