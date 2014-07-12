@@ -2,32 +2,30 @@ from smtplib import SMTP, SMTPAuthenticationError, SMTP_SSL
 import re
 import os
 import sys
-from book import *
 
 SERVER = os.environ.get( 'PYMAIL_SRV' )
-PORT = os.environ.get( 'PYMAIL_PRT' )
+PORT = int(os.environ.get( 'PYMAIL_PRT' ))
 SSL = os.environ.get( 'PYMAIL_SSL' )
 
 class Email:
 
     def __init__( self, name, psw ):
-        self.book = Book()
         self.name = name
         self.psw = psw
-        self.to = self.book.get_to()
+        self.to = raw_input('To : ')
         self.subject = 'Subject : %s\n' % raw_input('Subject : ')
         self.msg = raw_input('Msg : ')
         self.failed = {}
 
     def __str__( self ):
         return 'From : ' + self.name + '\nTo : ' + \
-            str(self.to) + '\n' + self.subject + 'Body : ' + self.msg
+            str(self.to) + '\n' + self.subject + '\nBody : ' + self.msg
         
     def __start_server( self ):
         if SSL:
-            self.server = SMTP_SSL( SERVER, port=PORT )
+            self.server = SMTP_SSL( SERVER, PORT )
         else:
-            self.server = SMTP( SERVER, port=PORT )
+            self.server = SMTP( SERVER, PORT )
             self.server.ehlo()
             self.server.starttls()
 
